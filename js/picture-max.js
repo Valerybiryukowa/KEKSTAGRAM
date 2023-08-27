@@ -16,7 +16,7 @@ const COMMENT_AVATAR_SIZE = 35;
 const COMMENTS_AMOUNT = 5;
 
 const createComments = (comments) => {
-  socialComments.innerHtml = '';
+  socialComments.innerHTML = '';
 
   if (comments) {
     comments.forEach(comment => {

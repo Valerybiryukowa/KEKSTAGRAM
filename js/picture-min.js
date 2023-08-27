@@ -33,9 +33,10 @@ const showPhoto = (photos) => {
   photoContainer.appendChild(photoListFragment);
 };
 
-export {
-  photoContainer,
-  showPhoto
-};
+const clearPhoto = () => {
+  photoContainer.innerHTML = '';
+}
+
+export {photoContainer, showPhoto, clearPhoto};
 
 

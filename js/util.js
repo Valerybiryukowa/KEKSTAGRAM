@@ -25,4 +25,12 @@ const getRandomArrayElement = (elements) => {
   return elements[getRandomInteger(0, elements.length - 1)];
 };
 
-export {getRandomArrayElement};
+const isEscapeKey = (evt) => {
+  return evt.key === 'Escape';
+};
+
+const isEnterKey = (evt) => {
+  return evt.key === 'Enter';
+}
+
+export {getRandomArrayElement, isEscapeKey, isEnterKey};
