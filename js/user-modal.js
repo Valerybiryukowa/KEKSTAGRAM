@@ -52,6 +52,22 @@ userModalCloseForm.addEventListener('keydown', (evt) => {
   }
 });
 
+// Эта функция есть в сокращенном виде в util js, написала здесь чтобы проверить обработчик в консоли
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    userImageLoading.classList.add('hidden');
+  }
+});
+
+// // Эта функция есть в сокращенном виде в util js, написала здесь чтобы проверить обработчик в консоли, заработал
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+    userImageLoading.classList.remove('hidden');
+  }
+});
+
 openUserForm();
 
 

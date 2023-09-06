@@ -9,11 +9,15 @@ const socialCommentCount = modalPicture.querySelector('.social__comment-count');
 const commentsLoader = modalPicture.querySelector('.comments-loader');
 const cancelButton = modalPicture.querySelector('.big-picture__cancel');
 
+socialCommentCount.classList.remove('hidden');
+commentsLoader.classList.remove('hidden');
+
 const LI_CLASS_NAME = 'social__comment';
 const IMG_CLASS_NAME = 'social__picture';
 const PAR_CLASS_NAME = 'social__text';
 const COMMENT_AVATAR_SIZE = 35;
 const COMMENTS_AMOUNT = 5;
+
 
 const createComments = (comments) => {
   socialComments.innerHTML = '';

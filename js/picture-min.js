@@ -35,7 +35,7 @@ const showPhoto = (photos) => {
 
 const clearPhoto = () => {
   photoContainer.innerHTML = '';
-}
+};
 
 export {photoContainer, showPhoto, clearPhoto};
 

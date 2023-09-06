@@ -31,6 +31,6 @@ const isEscapeKey = (evt) => {
 
 const isEnterKey = (evt) => {
   return evt.key === 'Enter';
-}
+};
 
 export {getRandomArrayElement, isEscapeKey, isEnterKey};
