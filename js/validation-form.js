@@ -9,7 +9,7 @@ const successMessageTemplateElement = document.querySelector('#success').content
 const successButtonElement = successMessageTemplateElement.querySelector('.success__button');
 const errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
 const errorButtonElement = errorMessageTemplateElement.querySelector('.error__button');
-const submitButtonElement = imageLoadingFormElement.querySelector('.img-upload__submit');
+
 
 // Функция для снятия обработчика для события keydown, при срабатывании события focus, с помощью stopPropagation когда фокус в поле хэштега, чтобы клавишей эск нельзя было закрыть форму
 
@@ -21,16 +21,17 @@ const handleEsc = (event) => {
   }
 };
 
-const addEscHandler = () => {
-  document.addEventListener('keydown', handleEsc);
+hashtagInput.addEventListener('keydown', handleEsc);
+
+const commentTextarea = document.getElementById('description-textarea');
+
+const handleEscComment = (event) => {
+  if (event.key === 'Escape') {
+    event.stopPropagation();
+  }
 };
 
-const removeEscHandler = () => {
-  document.removeEventListener('keydown', handleEsc);
-};
-
-hashtagInput.addEventListener('focus', addEscHandler);
-hashtagInput.addEventListener('blur', removeEscHandler);
+commentTextarea.addEventListener('keydown', handleEscComment);
 
 
 const submitButtonText = {
@@ -62,17 +63,6 @@ window.addEventListener('click', hideErrorMessage);
 
 //Сброс состояния загрузки изображения, очистка поля и элементов формы, показ и скрытие сообщения об успешной загрузки
 
-
-
-const blockSubmitButton = () => {
-  submitButtonElement.disabled = true;
-  submitButtonElement.textContent = submitButtonText.SENDING;
-};
-
-const unblockSubmitButton = () => {
-  submitButtonElement.disabled = false;
-  submitButtonElement.textContent = submitButtonText.IDLE;
-};
 
 // Выполняет проверку правильности хэштегов
 
@@ -117,6 +107,25 @@ pristine.addValidator(hashtagInputElement, validateHashtag, 'Хэш-тег на�
 pristine.addValidator(hashtagInputElement, validateHashtagUnique, 'Хэштеги не могут повторяться');
 pristine.addValidator(hashtagInputElement, validateHashtagAmount, 'Максимум 5 хэштегов');
 pristine.addValidator(commentsInputElement, validateComments, 'Длина комментария не может составлять больше 140 символов');
+
+//pristine.addValidator(commentsInputElement, (value, input) => {
+  // Выполняем валидацию комментария
+  //const isValid = validateComments(value);
+
+  // Получаем родительский fieldset элемент
+  //const parentFieldset = input.closest('.img-upload__text');
+
+  //if (isValid) {
+    // Если комментарий валиден, убираем класс ошибки
+   // parentFieldset.classList.remove('img-upload__text--invalid');
+  //} else {
+    // Если комментарий невалиден, добавляем класс ошибки
+    //parentFieldset.classList.add('img-upload__text--invalid');
+  //}
+
+  //return isValid;
+//}, 'Длина комментария не может составлять больше 140 символов');
+
 
 const onSubmitForm = (evt) => {
   evt.preventDefault();

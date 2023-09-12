@@ -113,7 +113,6 @@ const createRandomCommentsCard = () => {
 
 // eslint-disable-next-line no-unused-vars
 const randomCommentsCard = createRandomCommentsCard();
-export {randomCommentsCard};
 
 const createCardsComments = () => {
   const arrcardsComments = randomCommentsCard.splice(0, getRandomInteger(cardsComments.min, cardsComments.max));
@@ -140,3 +139,5 @@ const galleryPhotos = () => Array.from({length: GALLERY_PHOTOS_COUNT}, createDes
 
 // eslint-disable-next-line no-console
 export {galleryPhotos};
+export {randomCommentsCard};
+

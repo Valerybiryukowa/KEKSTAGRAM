@@ -1,8 +1,8 @@
-import {galleryPhotos} from './data.js';
 import {openModalPicture} from './picture-max.js';
 
 const photoContainer = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const errorMessageBlock = document.querySelector('.error-message');
 
 
 const createPhotoTemplate = (element) => {
@@ -19,9 +19,7 @@ const createPhotoTemplate = (element) => {
   return photoElement;
 };
 
-createPhotoTemplate = galleryPhotos();
-
-const showPhoto = (photos) => {
+const showPhoto = (createPhotoTemplate) => {
   const photoListFragment = document.createDocumentFragment();
 
   photos.forEach(photo => {
@@ -36,6 +34,16 @@ const showPhoto = (photos) => {
 const clearPhoto = () => {
   photoContainer.innerHTML = '';
 };
+
+// Функция для показа сообщения об ошибке
+const showErrorMessage = () => {
+  errorMessageBlock.classList.remove('hidden');
+}
+
+// Функция для скрытия сообщения об ошибке
+const hideErrorMessage = () => {
+  errorMessageBlock.classList.add('hidden');
+}
 
 export {photoContainer, showPhoto, clearPhoto};
 

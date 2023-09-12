@@ -1,7 +1,6 @@
 import './picture-max';
 import './picture-min';
 import {isEscapeKey, isEnterKey} from './util';
-import {showPhoto, clearPhoto} from './picture-min';
 
 const userImageLoading = document.querySelector('.img-upload__overlay');
 const openForm = document.querySelector('body');
@@ -20,15 +19,11 @@ const onFormEscKeydown = (evt) => {
 
 function openUserForm () {
   userImageLoading.classList.remove('hidden');
-  showPhoto();
-
   document.addEventListener('keydown', onFormEscKeydown);
 };
 
 function closeUserForm () {
   userImageLoading.classList.add('hidden');
-  clearPhoto();
-
   document.removeEventListener('keydown', onFormEscKeydown);
 };
 
@@ -68,7 +63,7 @@ document.addEventListener('keydown', (evt) => {
   }
 });
 
-openUserForm();
+export {openUserForm, closeUserForm};
 
 
 

@@ -33,4 +33,28 @@ const isEnterKey = (evt) => {
   return evt.key === 'Enter';
 };
 
-export {getRandomArrayElement, isEscapeKey, isEnterKey};
+// Функция с сообщением об ошибке, если форма не отправилась на сервер
+
+const showAlert = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 100;
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = 0;
+  alertContainer.style.top = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  // Сообщение с ошибкой на пять секунд
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+}
+
+export {getRandomArrayElement, isEscapeKey, isEnterKey, showAlert};
