@@ -1,3 +1,5 @@
+import {showPhoto} from './picture-min.js';
+
 const HASTAG_AMOUNT = 5;
 const COMMENTS_LENGTH = 140;
 
@@ -9,6 +11,7 @@ const successMessageTemplateElement = document.querySelector('#success').content
 const successButtonElement = successMessageTemplateElement.querySelector('.success__button');
 const errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
 const errorButtonElement = errorMessageTemplateElement.querySelector('.error__button');
+const errorMessageBlock = document.querySelector('.error-message');
 
 
 // Функция для снятия обработчика для события keydown, при срабатывании события focus, с помощью stopPropagation когда фокус в поле хэштега, чтобы клавишей эск нельзя было закрыть форму
@@ -34,12 +37,6 @@ const handleEscComment = (event) => {
 commentTextarea.addEventListener('keydown', handleEscComment);
 
 
-const submitButtonText = {
-  IDLE: 'Опубликовать',
-  SENDING: 'Публикация...'
-};
-
-
 const pristine = new Pristine(imageLoadingFormElement, {
   classTo: 'img-upload__text',
   errorClass: 'img-upload__text--invalid',
@@ -52,7 +49,7 @@ const hashtagRegularExp = /^#[a-zа-яё0-9]{1,19}$/i;
 const commentsRegularExp = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const hideSuccessMessage = () => successMessageTemplateElement.remove();
-const hideErrorMessage = () => errorMessageTemplateElement.remove();
+const encaveErrorMessage = () => errorMessageTemplateElement.remove();
 
 successButtonElement.addEventListener('click', hideSuccessMessage);
 errorButtonElement.addEventListener('click', hideErrorMessage);
@@ -126,19 +123,35 @@ pristine.addValidator(commentsInputElement, validateComments, 'Длина ком
   //return isValid;
 //}, 'Длина комментария не может составлять больше 140 символов');
 
+// Функция для показа сообщения об ошибке
+const showErrorMessage = () => {
+  errorMessageBlock.classList.remove('hidden');
+}
 
-const onSubmitForm = (evt) => {
-  evt.preventDefault();
-  const isValid = pristine.validate();
+// Функция для скрытия сообщения об ошибке
+const hideErrorMessage = () => {
+  errorMessageBlock.classList.add('hidden');
+}
 
-  if (isValid) {
-    blockSubmitButton();
-    const formData = new FormData(evt.target);
-  } else {
-    imageLoadingTextContainer.firstChild.textContent = 'Проверьте правильность введеных хэштегов и комментариев, длина комментария не может составлять больше 140 символов';
+// Функция для вывода ошибки при получении данных с сервера
+
+getData(() => {
+  if (!response.ok) {
+    throw new Error('Ошибка при загрузке данных с сервера');
   }
-};
+  return response.json();
+})
+.then((data) => {
+  // Данные успешно загружены, обрабатываем их и отображаем фотографии
+  showPhoto(data);
+  hideErrorMessage(); // Скрываем сообщение об ошибке (если оно было видимым)
+})
+.catch((error) => {
+   // В случае ошибки при запросе, показываем сообщение об ошибке
+  showErrorMessage();
+});
 
-imageLoadingFormElement.addEventListener('submit', onSubmitForm);
+
+imageLoadingFormElement.addEventListener('submit');
 
 export {errorMessageTemplateElement};

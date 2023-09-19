@@ -63,7 +63,7 @@ document.addEventListener('keydown', (evt) => {
   }
 });
 
-export {openUserForm, closeUserForm};
+export {openUserForm, closeUserForm, userModalOpenForm};
 
 
 

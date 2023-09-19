@@ -37,7 +37,7 @@ const isEnterKey = (evt) => {
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
+  alertContainer.style.zIndex = '100';
   alertContainer.style.position = 'absolute';
   alertContainer.style.left = 0;
   alertContainer.style.top = 0;
@@ -57,4 +57,13 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
-export {getRandomArrayElement, isEscapeKey, isEnterKey, showAlert};
+// Функция по устранению дребезга
+
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+
+export {getRandomArrayElement, isEscapeKey, isEnterKey, showAlert, debounce};
