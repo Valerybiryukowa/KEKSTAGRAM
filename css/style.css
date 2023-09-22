@@ -268,6 +268,20 @@ main {
   background-position: -5px -31px;
 }
 
+.error-message {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  padding: 10px 3px;
+  text-align: center;
+  background-color: red;
+}
+
+.error-message__text {
+  margin: 0;
+}
+
 
 /* Поле для загрузки нового изображения
    ========================================================================== */
@@ -659,6 +673,14 @@ main {
 /**
  * Блок добавления хэштегов и комментария к изображению
  */
+
+ .img-upload__text--invalid .text__hashtags {
+  border: 3px solid red;
+};
+
+.img-upload__text--invalid .text__description {
+  border: 3px solid red;
+};
 
 .text {
   margin: 0;

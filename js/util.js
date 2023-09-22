@@ -13,12 +13,11 @@ export {getRandomInteger};
 // Функция для проверки максимальной длины строки
 
 // eslint-disable-next-line arrow-body-style
-const checkMaxLengthString = (string, maxLength) => {
-  return maxLength >= string.length;
+const checkMaxLengthString = (string, length) => {
+  return string.length <= length;
 };
 
-// eslint-disable-next-line no-console
-console.log(checkMaxLengthString('проверяемая строка', 20));
+checkMaxLengthString('htmlacademy', 20);
 
 // eslint-disable-next-line arrow-body-style
 const getRandomArrayElement = (elements) => {

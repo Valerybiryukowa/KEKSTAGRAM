@@ -1,40 +1,43 @@
-import {openModalPicture} from './picture-max.js';
+import {openModalPicture, modalPicture, displayComments} from './picture-max.js';
+import './picture-max.js';
 
 const photoContainer = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-
-const createPhotoTemplate = (element) => {
-  const photoElement = photoTemplate.cloneNode(true);
-  const photoImage = photoElement.querySelector('.picture__img');
-  const photoComments = photoElement.querySelector('.picture__comments');
-  const photoLikes = photoElement.querySelector('.picture__likes');
-
-  photoElement.dataset.id = element.id;
-  photoImage.src = element.url;
-  photoComments.textContent = element.comments.length;
-  photoLikes.textContent = element.likes;
-
-  return photoElement;
-};
-
-const showPhoto = (createPhotoTemplate) => {
+const showPhoto = (posts) => {
   const photoListFragment = document.createDocumentFragment();
 
-  createPhotoTemplate.forEach(photo => {
-    const pictures = createPhotoTemplate(photo);
+  posts.forEach(({ url, description, likes, comments }) => {
+  const photoElement = photoTemplate.cloneNode(true);
+  photoElement.querySelector('.picture__img').src = url;
+  photoElement.querySelector('.picture__img').alt = description;
+  const photoInfo = photoElement.querySelector('.picture__info');
+  photoInfo.querySelector('.picture__comments').textContent = comments.length;
+  photoInfo.querySelector('.picture__likes').textContent = likes;
 
-    photoListFragment.appendChild(pictures);
+  photoListFragment.append(photoElement);
+
+  const onMinPictureOpen = (evt) => {
+    evt.preventDefault();
+    modalPicture.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    displayComments(comments);
+    openModalPicture(url, description, likes, comments);
+  };
+
+  photoElement.addEventListener('click', onMinPictureOpen);
   });
 
-  photoContainer.appendChild(photoListFragment);
+  document.querySelectorAll('.picture').forEach((photoElement) => photoElement.remove());
+
+  const photoElementFragment = document.createDocumentFragment();
+  photoElementFragment.append(photoListFragment);
+  photoContainer.append(photoElementFragment);
 };
 
 const clearPhoto = () => {
   photoContainer.innerHTML = '';
 };
 
-
 export {photoContainer, showPhoto, clearPhoto};
-
 

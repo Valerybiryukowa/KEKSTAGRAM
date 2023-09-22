@@ -180,6 +180,6 @@ const onDocumentKeydown = (evt) => {
 
 const onCancelButtonClick = () => closeModalPicture();
 
-export {openModalPicture};
+export {openModalPicture, modalPicture, displayComments};
 
 
