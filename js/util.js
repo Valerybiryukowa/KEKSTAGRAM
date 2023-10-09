@@ -65,4 +65,4 @@ const debounce = (callback, timeoutDelay) => {
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 
-export {getRandomArrayElement, isEscapeKey, isEnterKey, showAlert, debounce};
+export { getRandomArrayElement, isEscapeKey, isEnterKey, showAlert, debounce };
