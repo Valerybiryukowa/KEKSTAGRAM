@@ -1,4 +1,4 @@
-import {getRandomArrayElement, showAlert} from './util.js';
+import {showAlert} from './util.js';
 import {sendData} from './util.js';
 
 const form = document.querySelector('.img-upload__form');
@@ -9,7 +9,6 @@ const pristine = new pristine(form, {
   errorTextParent: 'img-upload__label',
   errorTextClass: 'img-upload__label__error-text',
 });
-
 
 const blockSubmitButton = () => {
   submitButtonElement.disabled = true;
@@ -138,5 +137,4 @@ const leverClickOutside = (evt) => {
   }
 }
 
-
-export {setUserFormSubmit};
+export {setUserFormSubmit, showSuccesMessage, showErrorMessage};

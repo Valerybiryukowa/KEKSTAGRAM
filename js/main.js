@@ -10,13 +10,9 @@ import './image-scale.js';
 import './filter-slider.js';
 import {showPhoto} from './picture-min.js';
 import {getData} from './api.js';
-import {debounce} from './util.js';
 
 
-// eslint-disable-next-line no-console
-console.log(
-  galleryPhotos()
-);
+galleryPhotos();
 
 getData((photos) => {
   showPhoto(photos);

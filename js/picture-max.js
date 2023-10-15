@@ -1,4 +1,3 @@
-//const body = document.querySelector('body');
 import { isEscapeKey } from './util';
 
 const modalPicture = document.querySelector('.big-picture');

@@ -1,4 +1,8 @@
-import {showPhoto} from './picture-min.js';
+import {sendData} from './api.js';
+import {scaleReset} from './image-scale.js';
+import {filterReset} from './filter-slider.js';
+import { isEscapeKey, showAlert } from './util.js';
+import {onFileUploadClose} from './upload-img.js';
 
 const HASTAG_AMOUNT = 5;
 const COMMENTS_LENGTH = 140;
@@ -11,8 +15,7 @@ const successMessageTemplateElement = document.querySelector('#success').content
 const successButtonElement = successMessageTemplateElement.querySelector('.success__button');
 const errorMessageTemplateElement = document.querySelector('#error').content.querySelector('.error');
 const errorButtonElement = errorMessageTemplateElement.querySelector('.error__button');
-const errorMessageBlock = document.querySelector('.error-message');
-
+const submitButtonElement = imageLoadingFormElement.querySelector('.img-upload__submit');
 
 // Функция для снятия обработчика для события keydown, при срабатывании события focus, с помощью stopPropagation когда фокус в поле хэштега, чтобы клавишей эск нельзя было закрыть форму
 
@@ -36,7 +39,6 @@ const handleEscComment = (event) => {
 
 commentTextarea.addEventListener('keydown', handleEscComment);
 
-
 const pristine = new Pristine(imageLoadingFormElement, {
   classTo: 'img-upload__text',
   errorClass: 'img-upload__text--invalid',
@@ -46,10 +48,9 @@ const pristine = new Pristine(imageLoadingFormElement, {
 });
 
 const hashtagRegularExp = /^#[a-zа-яё0-9]{1,19}$/i;
-const commentsRegularExp = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const hideSuccessMessage = () => successMessageTemplateElement.remove();
-const encaveErrorMessage = () => errorMessageTemplateElement.remove();
+const hideErrorMessage = () => errorMessageTemplateElement.remove();
 
 successButtonElement.addEventListener('click', hideSuccessMessage);
 errorButtonElement.addEventListener('click', hideErrorMessage);
@@ -58,8 +59,32 @@ errorButtonElement.addEventListener('click', hideErrorMessage);
 window.addEventListener('click', hideSuccessMessage);
 window.addEventListener('click', hideErrorMessage);
 
-//Сброс состояния загрузки изображения, очистка поля и элементов формы, показ и скрытие сообщения об успешной загрузки
+const onUploadReset = () => {
+  onFileUploadClose();
+  imageLoadingFormElement.reset();
+  applyScale();
+  filterReset();
+  document.body.append(successMessageTemplateElement);
+  imageLoadingTextContainer.firstChild.textContent = '';
 
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      hideSuccessMessage();
+    }
+  });
+};
+
+const onError = () => {
+  document.body.append(errorMessageTemplateElement);
+
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      hideErrorMessage();
+    }
+  });
+};
 
 // Выполняет проверку правильности хэштегов
 
@@ -105,53 +130,46 @@ pristine.addValidator(hashtagInputElement, validateHashtagUnique, 'Хэштег�
 pristine.addValidator(hashtagInputElement, validateHashtagAmount, 'Максимум 5 хэштегов');
 pristine.addValidator(commentsInputElement, validateComments, 'Длина комментария не может составлять больше 140 символов');
 
-//pristine.addValidator(commentsInputElement, (value, input) => {
-  // Выполняем валидацию комментария
-  //const isValid = validateComments(value);
+const submitButtonText = {
+  IDLE: 'Опубликовать',
+  SENDING: 'Публикация...'
+};
 
-  // Получаем родительский fieldset элемент
-  //const parentFieldset = input.closest('.img-upload__text');
+const blockSubmitButton = () => {
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = submitButtonText.SENDING;
+};
 
-  //if (isValid) {
-    // Если комментарий валиден, убираем класс ошибки
-   // parentFieldset.classList.remove('img-upload__text--invalid');
-  //} else {
-    // Если комментарий невалиден, добавляем класс ошибки
-    //parentFieldset.classList.add('img-upload__text--invalid');
-  //}
+const unblockSubmitButton = () => {
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = submitButtonText.IDLE;
+};
 
-  //return isValid;
-//}, 'Длина комментария не может составлять больше 140 символов');
+const onSubmitForm = (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
 
-// Функция для показа сообщения об ошибке
-const showErrorMessage = () => {
-  errorMessageBlock.classList.remove('hidden');
-}
+  if (isValid) {
+    blockSubmitButton();
+    const formData = new FormData(evt.target);
 
-// Функция для скрытия сообщения об ошибке
-const hideErrorMessage = () => {
-  errorMessageBlock.classList.add('hidden');
-}
-
-// Функция для вывода ошибки при получении данных с сервера
-
-getData(() => {
-  if (!response.ok) {
-    throw new Error('Ошибка при загрузке данных с сервера');
+    sendData(formData)
+      .then((response) => {
+        if (response.ok) {
+          onUploadReset();
+        } else {
+          onError();
+        }
+      })
+      .catch(() => {
+        showAlert('Фотография не загружена. Попробуйте позже');
+      })
+      .finally(unblockSubmitButton);
+  } else {
+    imageLoadingTextContainer.firstChild.textContent = 'Проверьте правильность введеных хэштегов и комментариев';
   }
-  return response.json();
-})
-.then((data) => {
-  // Данные успешно загружены, обрабатываем их и отображаем фотографии
-  showPhoto(data);
-  hideErrorMessage(); // Скрываем сообщение об ошибке (если оно было видимым)
-})
-.catch((error) => {
-   // В случае ошибки при запросе, показываем сообщение об ошибке
-  showErrorMessage();
-});
+};
 
-
-imageLoadingFormElement.addEventListener('submit');
+imageLoadingFormElement.addEventListener('submit', onSubmitForm);
 
 export {errorMessageTemplateElement};

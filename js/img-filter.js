@@ -1,6 +1,6 @@
-export {debounce, showAlert} from './util';
-export {getData} from './api';
-export {showPhoto} from './picture-min';
+import {debounce, showAlert} from './util';
+import {getData} from './api';
+import {showPhoto} from './picture-min';
 
 const imgFiltersElement = document.querySelector('.img-filters');
 const imgFiltersButton = document.querySelectorAll('.img-filters__button');
@@ -60,11 +60,11 @@ const onDiscussedLoad = (cb) => {
 };
 
 getData()
-.then((photos) => {
-  showPhoto(photos);
-  onDefaultLoad(debounce(() => showPhoto(photos), RERENDER_DELAY));
-  onRandomLoad(debounce(() => showPhoto(imgFilterRandom(photos)), RERENDER_DELAY));
-  onDiscussedLoad(debounce(() => showPhoto(imgFilterDiscussed(photos)), RERENDER_DELAY));
+.then((posts) => {
+  showPhoto(posts);
+  onDefaultLoad(debounce(() => showPhoto(posts), RERENDER_DELAY));
+  onRandomLoad(debounce(() => showPhoto(imgFilterRandom(posts)), RERENDER_DELAY));
+  onDiscussedLoad(debounce(() => showPhoto(imgFilterDiscussed(posts)), RERENDER_DELAY));
 })
 .then(() => imgFiltersControl())
 .catch(() => showAlert('Не удалось загрузить страницу, попробуйте позже'));

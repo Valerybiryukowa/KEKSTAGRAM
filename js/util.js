@@ -1,3 +1,5 @@
+const ALERT_SHOW_TIME = 2000;
+
 // Функция для нахождения случайного целого числа
 
 // eslint-disable-next-line no-unused-vars
@@ -64,5 +66,6 @@ const debounce = (callback, timeoutDelay) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
+};
 
 export { getRandomArrayElement, isEscapeKey, isEnterKey, showAlert, debounce };

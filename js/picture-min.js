@@ -1,5 +1,4 @@
-import {openModalPicture, modalPicture, displayComments} from './picture-max.js';
-import './picture-max.js';
+import { modalPicture, renderBigPicture, showCommentsList} from './picture-max.js';
 
 const photoContainer = document.querySelector('.pictures');
 const photoTemplate = document.querySelector('#picture').content.querySelector('.picture');
@@ -21,8 +20,8 @@ const showPhoto = (posts) => {
     evt.preventDefault();
     modalPicture.classList.remove('hidden');
     document.body.classList.add('modal-open');
-    displayComments(comments);
-    openModalPicture(url, description, likes, comments);
+    showCommentsList(comments);
+    renderBigPicture(url, description, likes, comments);
   };
 
   photoElement.addEventListener('click', onMinPictureOpen);
