@@ -62,7 +62,7 @@ window.addEventListener('click', hideErrorMessage);
 const onUploadReset = () => {
   onFileUploadClose();
   imageLoadingFormElement.reset();
-  applyScale();
+  scaleReset();
   filterReset();
   document.body.append(successMessageTemplateElement);
   imageLoadingTextContainer.firstChild.textContent = '';
