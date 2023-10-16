@@ -1,51 +1,35 @@
 # Личный проект «{{KEKSTAGRAM}}»
 
-* Студент: [{{userName}}]({{userProfile}}).
-* Наставник: `Неизвестно`.
+Решение для [Kekstagram](https://kekstagram-app.netlify.app/).
 
----
+## Обзор
 
-_Не удаляйте и не изменяйте самовольно файлы и папки:_
-_`.editorconfig`, `.eslintrc`, `.gitattributes`, `.gitignore`, `package-lock.json`, `package.json`., `.github`_
+Кекстаграм — сервис просмотра изображений. Пользователям предоставляется возможность загружать собственные фотографии или просматривать фотографии, ранее загруженные другими пользователями.
 
----
+### Скриншот
 
-[Как работать с Git на проекте](Contributing.md) | [Как работать над проектом](Workflow.md)
+![](./screenshot.jpg)
 
-### Памятка
+### Ссылки
 
-#### 1. Зарегистрируйтесь на Гитхабе
+- Live Site URL: [Kekstagram](https://kekstagram-app.netlify.app/)
 
-Если у вас ещё нет аккаунта на [github.com](https://github.com/join), скорее зарегистрируйтесь.
+### Спроектирован с помощью
 
-#### 2. Создайте форк
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- CSS Grid
+- Vanilla JS
+- Fetch API
+- [NoUiSlider](https://refreshless.com/nouislider/) - Легкий слайдер диапазона JavaScript с полной поддержкой сенсорного управления
+- [PristineJs](https://pristine.js.org/) - Vanilla javascript проверки формы javascript
 
-Откройте репозиторий и нажмите кнопку «Fork» в правом верхнем углу. Репозиторий из Академии будет скопирован в ваш аккаунт.
+### Изучено
 
-<img width="769" alt="" src="https://user-images.githubusercontent.com/10909/35275222-1d624452-0050-11e8-8aca-06d2832724ce.png">
+Изучена организация кода с помощью ES-модулей, замыканий, прослушивателей событий и DOM, как получать API. Кроме того, получены глубокие фундаментальные знания концепций JS, используемых в веб-разработке.
 
-Получится вот так:
+## Благодарности
 
-<img width="769" alt="" src="https://user-images.githubusercontent.com/10909/35275223-1d7cf9fa-0050-11e8-829b-98ac3c9a4f8b.png">
+Большое спасибо HTML Academy за хорошо структурированную программу обучения и проверку кода.
 
-#### 3. Клонируйте репозиторий на свой компьютер
-
-Будьте внимательны: нужно клонировать свой репозиторий (форк), а не репозиторий Академии. Также обратите внимание, что клонировать репозиторий нужно через SSH, а не через HTTPS. Нажмите зелёную кнопку в правой части экрана, чтобы скопировать SSH-адрес вашего репозитория:
-
-<img width="769" alt="" src="https://user-images.githubusercontent.com/10909/35275224-1d97a7dc-0050-11e8-89f9-41c9a7b2ae9c.png">
-
-Клонировать репозиторий можно так:
-
-```
-git clone SSH-адрес_вашего_форка
-```
-
-Команда клонирует репозиторий на ваш компьютер и подготовит всё необходимое для старта работы.
-
-#### 4. Начинайте обучение!
-
----
-
-<a href="https://htmlacademy.ru/intensive/javascript"><img align="left" width="50" height="50" alt="HTML Academy" src="https://up.htmlacademy.ru/static/img/intensive/javascript/logo-for-github-2.png"></a>
-
-Репозиторий создан для обучения на интенсивном онлайн‑курсе «[JavaScript. Профессиональная разработка веб-интерфейсов](https://htmlacademy.ru/intensive/javascript)» от [HTML Academy](https://htmlacademy.ru).
