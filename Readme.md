@@ -1,6 +1,6 @@
 # Личный проект «{{KEKSTAGRAM}}»
 
-This is a solution to the [Kekstagram](https://kekstagram-app.netlify.app/).
+Решение для [Kekstagram](https://kekstagram-app.netlify.app/).
 
 ## Обзор
 
