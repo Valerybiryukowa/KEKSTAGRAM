@@ -14,6 +14,8 @@ import {getData} from './api.js';
 
 galleryPhotos();
 
+showPhoto();
+
 getData((photos) => {
   showPhoto(photos);
 });
